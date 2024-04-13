@@ -33,6 +33,8 @@ public class Jugada implements Serializable {
         return col;
     }
 
+
+
     public Jugada() {}
 
     public String getPlayer() {

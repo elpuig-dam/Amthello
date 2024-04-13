@@ -18,6 +18,8 @@ public class Game implements Serializable {
 
     //TODO Netejar comentaris i prints sobrants
     //TODO Refactoritzar el codi
+    //TODO Fer un test per comprovar si a un jugador no li queda cap jugada vàlida passa el torn
+    //TODO Detectar final de la partida i guanyador
 
     public void initTauler() {
         //inicialitzar tauler
@@ -41,8 +43,17 @@ public class Game implements Serializable {
 
     public String printGame() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
+        // Imprimeix els índexs de les columnes
+        sb.append("   ");
+        for (int i = 0; i < MAX_COLS; i++) {
+            sb.append(i).append("  ");
+        }
+        sb.append("\n");
+
+        for (int i = 0; i < MAX_ROWS; i++) {
+            // Imprimeix l'índex de la fila
+            sb.append(i).append("  ");
+            for (int j = 0; j < MAX_COLS; j++) {
                 sb.append(tauler[i][j]).append("  ");
             }
             sb.append("\n");
@@ -89,6 +100,13 @@ public class Game implements Serializable {
             nextTorn();
         }
         else tirada = false;
+
+        // Comprova si el jugador actual té alguna jugada vàlida
+        if (!hiHaJugadaValida(c)) {
+            // Si no té cap jugada vàlida, passa el torn
+            nextTorn();
+        }
+
         return tirada;
     }
 
@@ -150,6 +168,21 @@ public class Game implements Serializable {
             }
         }
 
+        return false;
+    }
+
+    public boolean hiHaJugadaValida(char symbol) {
+        Jugada j = new Jugada();
+        j.setSymbol(symbol);
+        for (int i = 0; i < MAX_ROWS; i++) {
+            for (int k = 0; k < MAX_COLS; k++) {
+                j.setRow(i);
+                j.setCol(k);
+                if (esValida(j)) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 

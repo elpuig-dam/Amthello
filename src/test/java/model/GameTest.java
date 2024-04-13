@@ -15,7 +15,7 @@ public class GameTest {
     @Test
     public void testSetJugadaNoValida() {
         Game game = new Game();
-        Jugada jugada = new Jugada('x', 3, 3);
+        Jugada jugada = new Jugada("jug1", 3, 3, 'x');
 
         // Comprova que la jugada és vàlida
         assertFalse(game.esValida(jugada));
@@ -24,7 +24,7 @@ public class GameTest {
     @Test
     public void testSetJugadaValida() {
         Game game = new Game();
-        Jugada jugada = new Jugada('x', 3, 2);
+        Jugada jugada = new Jugada("jug1", 3, 2, 'x');
 
         // Comprova que la jugada és vàlida
         assertTrue(game.esValida(jugada));
